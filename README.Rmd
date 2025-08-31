@@ -1,0 +1,109 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+## Introduction
+Welcome to the `recodeR` package. `recodeR` is an R package for recoding values in data.frames and tibbles. If you notice a bug or have trouble using a function, please contact [Dr. Ama Nyame-Mensah](mailto:ama@anyamemensah.com), the package's maintainer.
+
+## Table of Contents
+
+* [Installation](#download_install)
+* [A Note on data dictionaries](#note_data_dict)
+* [Creating a 'recoding' data dictionary](#create_recoding_dict)
+* [Recoding columns in a dataset](#recoding_columns)
+
+
+## Installation {#download_install}
+
+To begin, download, install, and load `recodeR`.
+
+```{r setup, echo = TRUE}
+# devtools::install_github("anyamemensah/recodeR", build_vignettes = TRUE)
+
+library(recodeR)
+```
+
+## A Note on data dictionaries {#note_data_dict}
+
+A data dictionary is a helpful guide for changing the values in a dataset. It lists unique column/variable names, the original column/variable values/labels, the new recoded values/labels, and other useful details for working with the data, such as column/variable descriptions. The recodeR package includes tools that make it easy to turn 'regular' data dictionaries into ones that R can use to quickly update variable values/labels.
+
+## Creating a 'recoding' data dictionary {#create_recoding_dict}
+
+You can convert your standard data dictionary into a recoding data dictionary in R using the `create_recode_dict()` function. Before running the function, make sure your data dictionary includes the following:
+
+1. A `var_col` column with the unique variable/column names from your dataset.
+2. A `values_col` column with the original (old) values for each variable/column.
+3. A `labels_col` column with the new values/labels that will replace the old ones for each variable/column.
+4. A default_col column contains default values to use when no matching old value is found for each variable/column. NOTE: To keep the original value as the default, use `.x`. Blank entries will default to `NA`.
+5. A `string_col` column indicating whether the new values are strings (1) or not (0).
+
+The `grad_app_dict` dataset, provided with the `recodeR` package, shows how to set up a sample data dictionary in a flat file format, where each unique column in your dataset is associated with multiple rows. To learn more about this dataset, use `?grad_app_dict`.
+
+The `create_recode_dict()` function creates a list of 'recoding' dictionaries: one for string variables and another for numeric variables in your dataset. To create only a `string` or `numeric` recoding dictionary, set the `dict_type` argument to `string` or `numeric`, respectively. By default, this argument is set to `all`. Each 'recoding' dictionary contains the unique column names to be recoded, a set of two-sided formulas that map old values to new values, default values to use when no matching (old) value is found, and a column indicating whether the new values to be applied are strings (1) or not (0).
+
+```{r create_recode1, echo = TRUE}
+recoding_dict <- create_recode_dict(df = grad_app_dict,
+                                    var_col = "column_name",
+                                    values_col = "old_values",
+                                    labels_col = "new_labels",
+                                    default_col = "default",
+                                    string_col = "string")
+
+recoding_dict
+```
+
+Sometimes, data dictionaries are created with one row of data for each unique column/variable in the dataset, where the old and new values to be mapped for each variable are separated by delimiters like commas or semicolons.
+
+The `grad_app_dict_delim` dataset, provided with the `recodeR` package, shows how to set up a sample data dictionary in a delimited format, where each unique column in your dataset is associated with exactly one row To learn more about this dataset, use `?grad_app_dict_delim`.
+
+If your data dictionary is in a delimited format, you can use the `expand_delim_dict()` function to convert it into the traditional flat format, where each unique column in your dataset is associated with multiple rows. By default, the function also verifies that the expanded data dictionary meets the required criteria for use with the `create_recode_dict()` function.
+
+```{r expand_dict, echo = TRUE}
+expanded_dict <- expand_delim_dict(df = grad_app_dict_delim,
+                                   var_col = "column_name",
+                                   values_col = "old_values",
+                                   labels_col = "new_labels",
+                                   default_col = "default",
+                                   string_col = "string",
+                                   value_delim = ";",
+                                   label_delim = ";")
+
+expanded_dict
+```
+
+After the data dictionary passes all checks, use the `create_recode_dict()` function to convert it into a 'recoding' dictionary.
+
+```{r expand_recode_dict, echo = TRUE}
+expanded_recoding_dict <- create_recode_dict(df = expanded_dict,
+                                             var_col = "column_name",
+                                             values_col = "old_values",
+                                             labels_col = "new_labels",
+                                             default_col = "default",
+                                             string_col = "string")
+
+expanded_recoding_dict
+```
+
+## Recoding columns in a dataset {#recoding_columns}
+
+After creating the 'recoding' dictionary, use the `recode_cols()` function to apply the recoding rules to your dataset.
+
+```{r recode_cols, echo = TRUE}
+
+grad_app_recoded <-
+  recode_cols(df = grad_app,
+              list_of_dicts = recoding_dict,
+              var_col = "column_name",
+              formula_pairs_col = "formula_pairs",
+              default_col = "default",
+              string_col = "string")
+
+grad_app_recoded
+```
+
+
+
+
+
