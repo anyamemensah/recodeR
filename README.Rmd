@@ -5,6 +5,7 @@ output:
 ---
 
 ## Introduction
+
 Welcome to the `recodeR` package. `recodeR` is an R package for recoding values in data.frames and tibbles. If you notice a bug or have trouble using a function, please contact [Dr. Ama Nyame-Mensah](mailto:ama@anyamemensah.com), the package's maintainer.
 
 ## Table of Contents
@@ -102,8 +103,4 @@ grad_app_recoded <-
 
 grad_app_recoded
 ```
-
-
-
-
 
