@@ -9,13 +9,13 @@ Welcome to the `recodeR` package. `recodeR` is an R package for recoding values 
 
 ## Table of Contents
 
-* [Installation](#download_install)
-* [A Note on data dictionaries](#note_data_dict)
-* [Creating a 'recoding' data dictionary](#create_recoding_dict)
-* [Recoding columns in a dataset](#recoding_columns)
+* [Installation](#installation)
+* [A Note on data dictionaries](#a-note-on-data-dictionaries)
+* [Creating a 'recoding' data dictionary](#creating-a-recoding-data-dictionary)
+* [Recoding columns in a dataset](#recoding-columns-in-a-dataset)
 
 
-## Installation {#download_install}
+## Installation {#installation}
 
 To begin, download, install, and load `recodeR`.
 
@@ -25,11 +25,11 @@ To begin, download, install, and load `recodeR`.
 library(recodeR)
 ```
 
-## A Note on data dictionaries {#note_data_dict}
+## A Note on data dictionaries {#a-note-on-data-dictionaries}
 
 A data dictionary is a helpful guide for changing the values in a dataset. It lists unique column/variable names, the original column/variable values/labels, the new recoded values/labels, and other useful details for working with the data, such as column/variable descriptions. The recodeR package includes tools that make it easy to turn 'regular' data dictionaries into ones that R can use to quickly update variable values/labels.
 
-## Creating a 'recoding' data dictionary {#create_recoding_dict}
+## Creating a 'recoding' data dictionary {#creating-a-recoding-data-dictionary}
 
 You can convert your standard data dictionary into a recoding data dictionary in R using the `create_recode_dict()` function. Before running the function, make sure your data dictionary includes the following:
 
@@ -86,7 +86,7 @@ expanded_recoding_dict <- create_recode_dict(df = expanded_dict,
 expanded_recoding_dict
 ```
 
-## Recoding columns in a dataset {#recoding_columns}
+## Recoding columns in a dataset {#recoding-columns-in-a-dataset}
 
 After creating the 'recoding' dictionary, use the `recode_cols()` function to apply the recoding rules to your dataset.
 

@@ -7,10 +7,11 @@ Nyame-Mensah](mailto:ama@anyamemensah.com), the package’s maintainer.
 
 ## Table of Contents
 
-- [Installation](#download_install)
-- [A Note on data dictionaries](#note_data_dict)
-- [Creating a ‘recoding’ data dictionary](#create_recoding_dict)
-- [Recoding columns in a dataset](#recoding_columns)
+- [Installation](#installation)
+- [A Note on data dictionaries](#a-note-on-data-dictionaries)
+- [Creating a ‘recoding’ data
+  dictionary](#creating-a-recoding-data-dictionary)
+- [Recoding columns in a dataset](#recoding-columns-in-a-dataset)
 
 ## Installation
 
