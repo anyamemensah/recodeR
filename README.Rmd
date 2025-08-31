@@ -42,6 +42,10 @@ You can convert your standard data dictionary into a recoding data dictionary in
 
 The `grad_app_dict` dataset, provided with the `recodeR` package, shows how to set up a sample data dictionary in a flat file format, where each unique column in your dataset is associated with multiple rows. To learn more about this dataset, use `?grad_app_dict`.
 
+```{r data_dict_ex, echo = TRUE}
+grad_app_dict
+```
+
 The `create_recode_dict()` function creates a list of 'recoding' dictionaries: one for string variables and another for numeric variables in your dataset. To create only a `string` or `numeric` recoding dictionary, set the `dict_type` argument to `string` or `numeric`, respectively. By default, this argument is set to `all`. Each 'recoding' dictionary contains the unique column names to be recoded, a set of two-sided formulas that map old values to new values, default values to use when no matching (old) value is found, and a column indicating whether the new values to be applied are strings (1) or not (0).
 
 ```{r create_recode1, echo = TRUE}

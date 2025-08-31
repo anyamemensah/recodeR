@@ -58,6 +58,25 @@ how to set up a sample data dictionary in a flat file format, where each
 unique column in your dataset is associated with multiple rows. To learn
 more about this dataset, use `?grad_app_dict`.
 
+``` r
+grad_app_dict
+```
+
+    ## # A tibble: 116 × 6
+    ##    column_name      column_description      old_values new_labels default string
+    ##    <chr>            <chr>                   <chr>      <chr>      <chr>    <dbl>
+    ##  1 school_decision  School decision         A          Accepted   No Ent…      1
+    ##  2 school_decision  School decision         W          Waitlisted No Ent…      1
+    ##  3 school_decision  School decision         R          Rejected   No Ent…      1
+    ##  4 student_decision Student response        A          Accepted … No Ent…      1
+    ##  5 student_decision Student response        D          Declined … No Ent…      1
+    ##  6 ft_pt            Full-time or Part-time… pt         Part-time  No Ent…      1
+    ##  7 ft_pt            Full-time or Part-time… ft         Full-time  No Ent…      1
+    ##  8 ft_pt            Full-time or Part-time… sub        Submatric… No Ent…      1
+    ##  9 applied_dual_prg Applied to  dual degre… NODUAL     No         No Ent…      1
+    ## 10 applied_dual_prg Applied to  dual degre… YES        Yes        No Ent…      1
+    ## # ℹ 106 more rows
+
 The `create_recode_dict()` function creates a list of ‘recoding’
 dictionaries: one for string variables and another for numeric variables
 in your dataset. To create only a `string` or `numeric` recoding
