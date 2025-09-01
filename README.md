@@ -2,23 +2,23 @@
 
 Welcome to the `recodeR` package. `recodeR` is an R package for recoding
 values in data.frames and tibbles. If you notice a bug or have trouble
-using a function, please contact [Dr. Ama
+using a function, please contact [Ama
 Nyame-Mensah](mailto:ama@anyamemensah.com), the package’s maintainer.
 
 ## Table of Contents
 
-- [Installation](#installation)
+- [Installation](#download-and-installation)
 - [A Note on data dictionaries](#a-note-on-data-dictionaries)
 - [Creating a ‘recoding’ data
   dictionary](#creating-a-recoding-data-dictionary)
 - [Recoding columns in a dataset](#recoding-columns-in-a-dataset)
 
-## Installation
+## Download and Installation
 
 To begin, download, install, and load `recodeR`.
 
 ``` r
-# devtools::install_github("anyamemensah/recodeR", build_vignettes = TRUE)
+# devtools::install_github("anyamemensah/recodeR")
 
 library(recodeR)
 ```
