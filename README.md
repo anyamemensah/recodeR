@@ -146,7 +146,7 @@ expanded_dict <- expand_delim_dict(df = grad_app_dict_delim,
                                    label_delim = ";")
 ```
 
-    ## 'the_expanded_df' is a valid data.frame or tibble. ✔
+    ## 'the_expanded_df' is a valid data.frame.'. ✔
 
     ## 'column_name' is a valid column in 'the_expanded_df'. ✔
 
