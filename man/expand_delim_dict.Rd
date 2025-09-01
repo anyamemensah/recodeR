@@ -43,6 +43,9 @@ indicates whether the new values to be mapped onto the variable are string.}
 \item{value_delim}{A character or set of characters used to separate values in the
 `values_col`. Default is a comma `,`.}
 
+\item{label_delim}{A character or set of characters used to separate values in the
+`labels_col`. Default is a semi-colon `;`.}
+
 \item{remove_na}{A logical value indicating whether to remove NA values from values/labels.
 Default is `FALSE`.}
 
@@ -52,9 +55,6 @@ labels. Default is `FALSE`.}
 \item{check_df}{A logical value indicating whether to use the `check_dict` function to verify
 that the expanded data dictionary meets specific criteria necessary for use with the `create_dict`
 function. Default is `TRUE`.}
-
-\item{labels_delim}{A character or set of characters used to separate values in the
-`labels_col`. Default is a semi-colon `;`.}
 }
 \value{
 A tibble

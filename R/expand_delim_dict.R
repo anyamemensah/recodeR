@@ -24,7 +24,7 @@
 #' indicates whether the new values to be mapped onto the variable are string.
 #' @param value_delim A character or set of characters used to separate values in the
 #' `values_col`. Default is a comma `,`.
-#' @param labels_delim A character or set of characters used to separate values in the
+#' @param label_delim A character or set of characters used to separate values in the
 #' `labels_col`. Default is a semi-colon `;`.
 #' @param remove_na A logical value indicating whether to remove NA values from values/labels.
 #' Default is `FALSE`.
@@ -53,73 +53,83 @@ expand_delim_dict <- function(df,
   df_name <- deparse(substitute(df))
 
   if (!is.data.frame(df)) {
-    stop(paste0("'", df_name, "' is not a data.frame or tibble."))
+    stop("The 'df' argument is not a data.frame.")
   }
-
+  
   if (prod(dim(df)) == 0) {
-    stop(paste0("'", df_name, "' is empty."))
+    stop("The 'df' argument is empty.")
   }
 
   # Check 'var_col' is a character vector of length one and exists in 'df'
   if (!is.character(var_col) || length(var_col) != 1) {
     stop("Invalid 'var_col' argument. 'var_col' must be a character vector of length one.")
   }
-
+  
   if (! var_col %in% colnames(df)) {
-    stop(paste0("'", var_col, "' is not a column in ", df_name))
+    stop("The 'var_col' argument is not a column in 'df'.")
   }
 
   # Check 'values_col' is a character vector of length one and exists in 'df'
   if (!is.character(values_col) || length(values_col) != 1) {
     stop("Invalid 'values_col' argument. 'values_col' must be a character vector of length one.")
   }
-
+  
   if (! values_col %in% colnames(df)) {
-    stop(paste0("'", values_col, "' is not a column in ", df_name))
+    stop("The 'values_col' argument is not a column in 'df'.")
   }
 
   # Check 'labels_col' is a character vector of length one and exists in 'df'
   if (!is.character(labels_col) || length(labels_col) != 1) {
     stop("Invalid 'labels_col' argument. 'labels_col' must be a character vector of length one.")
   }
-
+  
   if (! labels_col %in% colnames(df)) {
-    stop(paste0("'", labels_col, "' is not a column in ", df_name))
+    stop("The 'labels_col' argument is not a column in 'df'.")
   }
 
   # Check 'default_col' is a character vector of length one and exists in 'df'
   if (!is.character(default_col) || length(default_col) != 1) {
     stop("Invalid 'default_col' argument. 'default_col' must be a character vector of length one.")
   }
-
+  
   if (! default_col %in% colnames(df)) {
-    stop(paste0("'", default_col, "' is not a column in ", df_name))
+    stop("The 'default_col' argument is not a column in 'df'.")
   }
 
   # Check 'string_col' is a character vector of length one, exists in 'df', and all values are 0/1
   if (!is.character(string_col) || length(string_col) != 1) {
     stop("Invalid 'string_col' argument. 'string_col' must be a character vector of length one.")
   }
-
+  
   if (! string_col %in% colnames(df)) {
-    stop(paste0("'", string_col, "' is not a column in ", df_name))
+    stop("The 'string_col' argument is not a column in 'df'.")
   }
 
   if (!all(is.element(df[["string"]], c(0,1)))) {
-    stop(paste0("'", string_col, "' in ", df_name, " contains a value other than 0 or 1."))
+    stop("The 'string_col' in 'df' contains values other than 0 or 1.")
   }
-
+  
+  # Check 'value_delim' is a character vector of length one
+  if (!is.character(value_delim) || length(value_delim) != 1) {
+    stop("Invalid 'value_delim' argument. 'value_delim' must be a character vector of length one.")
+  }
+  
+  # Check 'label_delim' is a character vector of length one
+  if (!is.character(label_delim) || length(label_delim) != 1) {
+    stop("Invalid 'label_delim' argument. 'label_delim' must be a character vector of length one.")
+  }
+  
   # Check that values in 'df' under 'var_col' appear exactly once
   if (! length(df[[var_col]]) == length(unique(df[[var_col]]))) {
-    dupe_cols <- unique(x[duplicated(x) | duplicated(x, fromLast = TRUE)])
-
+    dupe_cols <- unique(df[[var_col]][duplicated(df[[var_col]]) | duplicated(df[[var_col]], fromLast = TRUE)])
+    
     stop(paste0("The following variables appear more than once in '",
                 df_name,"' :\n", paste(dupe_cols)))
   }
 
 
   # Create expanded data dictionary flat file
-  new_df <- vector("list", length = length(df[[var_col]])) |> setNames(df[[var_col]])
+  new_df <- vector("list", length = length(df[[var_col]])) |> stats::setNames(df[[var_col]])
 
   for (current_col in unique(df[[var_col]])) {
     current_df <- df |> dplyr::filter(.data[[var_col]] == current_col)
@@ -132,7 +142,7 @@ expand_delim_dict <- function(df,
                                remove_na = remove_na,
                                remove_empty = remove_empty)
       ) |>
-      setNames(c(values_col, labels_col))
+      stats::setNames(c(values_col, labels_col))
 
     new_df[[current_col]] <-
       extracted_values |>

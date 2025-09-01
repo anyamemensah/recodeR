@@ -1,0 +1,1 @@
+utils::globalVariables(c("count", "is_not_equal_len"))

@@ -39,22 +39,22 @@ check_dict <- function(df,
   df_name <- deparse(substitute(df))
 
   if (!is.data.frame(df)) {
-    stop(paste0("'", df_name, "' is not a data.frame or tibble."))
+    stop(paste0("The 'df' argument is not a data.frame."))
   }
 
   if (prod(dim(df)) == 0) {
-    stop(paste0("'", df_name, "' is empty."))
+    stop(paste0("The 'df' argument is empty."))
   }
-
-  message(paste0("'", df_name, "' is a valid data.frame or tibble. \u2714"))
-
+  
+  message(paste0("'", df_name, "' is a valid column in '", df_name, "'. \u2714"))
+  
   # Check 'var_col' is a character vector of length one and exists in 'df'
   if (!is.character(var_col) || length(var_col) != 1) {
     stop("Invalid 'var_col' argument. 'var_col' must be a character vector of length one.")
   }
 
   if (! var_col %in% colnames(df)) {
-    stop(paste0("'", var_col, "' is not a column in ", df_name))
+    stop("The 'var_col' argument is not a column in 'df'.")
   }
 
   message(paste0("'", var_col, "' is a valid column in '", df_name, "'. \u2714"))
@@ -65,9 +65,9 @@ check_dict <- function(df,
   }
 
   if (! values_col %in% colnames(df)) {
-    stop(paste0("'", values_col, "' is not a column in ", df_name))
+    stop("The 'values_col' argument is not a column in 'df'.")
   }
-
+  
   message(paste0("'", values_col, "' is a valid column in '", df_name, "'. \u2714"))
 
   # Check 'labels_col' is a character vector of length one and exists in 'df'
@@ -76,7 +76,7 @@ check_dict <- function(df,
   }
 
   if (! labels_col %in% colnames(df)) {
-    stop(paste0("'", labels_col, "' is not a column in ", df_name))
+    stop(paste0("The 'labels_col' argument is not a column in 'df'."))
   }
 
   message(paste0("'", labels_col, "' is a valid column in '", df_name, "'. \u2714"))
@@ -87,7 +87,7 @@ check_dict <- function(df,
   }
 
   if (! default_col %in% colnames(df)) {
-    stop(paste0("'", default_col, "' is not a column in ", df_name))
+    stop(paste0("The 'default_col' argument is not a column in 'df'."))
   }
 
   message(paste0("'", default_col, "' is a valid column in '", df_name, "'. \u2714"))
@@ -98,11 +98,11 @@ check_dict <- function(df,
   }
 
   if (! string_col %in% colnames(df)) {
-    stop(paste0("'", string_col, "' is not a column in ", df_name))
+    stop(paste0("The 'string_col' argument is not a column in 'df'."))
   }
 
   if (!all(is.element(df[["string"]], c(0,1)))) {
-    stop(paste0("'", string_col, "' in ", df_name, " contains a value other than 0 or 1."))
+    stop(paste0("The 'string_col' in 'df' contains values other than 0 or 1."))
   }
 
   message(paste0(string_col, " is a valid column in '", df_name, "'. \u2714"))

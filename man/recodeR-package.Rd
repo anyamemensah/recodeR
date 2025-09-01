@@ -6,7 +6,7 @@
 \alias{recodeR-package}
 \title{recodeR: Package For Recoding Variable Values}
 \description{
-More about what it does (maybe more than one line). Continuation lines should be indented.
+A simple package for recoding variable values.
 }
 \author{
 \strong{Maintainer}: Ama Nyame-Mensah \email{ama@anyamemensah.com}
