@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-Welcome to the `recodeR` package. `recodeR` is an R package for recoding values in data.frames and tibbles. If you notice a bug or have trouble using a function, please contact [Ama Nyame-Mensah](mailto:ama@anyamemensah.com), the package's maintainer.
+Welcome to the `recodeR` package. `recodeR` is an R package for recoding values in data.frames and tibbles. If you notice a bug or have trouble using a function, please contact Ama Nyame-Mensah [ama@anyamemensah.com](mailto:ama@anyamemensah.com), the package's maintainer.
 
 ## Table of Contents
 
@@ -33,7 +33,7 @@ Welcome to the `recodeR` package. `recodeR` is an R package for recoding values 
 To begin, download, install, and load `recodeR`.
 
 ```{r setup, echo = TRUE}
-# devtools::install_github("anyamemensah/recodeR", build_vignettes = TRUE)
+# devtools::install_github("anyamemensah/recodeR")
 
 library(recodeR)
 ```
@@ -49,7 +49,7 @@ You can convert your standard data dictionary into a recoding data dictionary in
 1. A `var_col` column with the unique variable/column names from your dataset.
 2. A `values_col` column with the original (old) values for each variable/column.
 3. A `labels_col` column with the new values/labels that will replace the old ones for each variable/column.
-4. A default_col column contains default values to use when no matching old value is found for each variable/column. NOTE: To keep the original value as the default, use `.x`. Blank entries will default to `NA`.
+4. A `default_col` column contains default values to use when no matching old value is found for each variable/column. NOTE: To keep the original value as the default, use `.x`. Blank entries will default to `NA`.
 5. A `string_col` column indicating whether the new values are strings (1) or not (0).
 
 The `grad_app_dict` dataset, provided with the `recodeR` package, shows how to set up a sample data dictionary in a flat file format, where each unique column in your dataset is associated with multiple rows. To learn more about this dataset, use `?grad_app_dict`.
@@ -65,6 +65,8 @@ recoding_dict <- create_recode_dict(df = grad_app_dict,
                                     string_col = "string")
 
 recoding_dict
+
+recoding_dict$string$formula_pairs[[6]]
 ```
 
 Sometimes, data dictionaries are created with one row of data for each unique column/variable in the dataset, where the old and new values to be mapped for each variable are separated by delimiters like commas or semicolons.
@@ -97,6 +99,8 @@ expanded_recoding_dict <- create_recode_dict(df = expanded_dict,
                                              string_col = "string")
 
 expanded_recoding_dict
+
+expanded_recoding_dict$string$formula_pairs[[6]]
 ```
 
 ## Recoding columns in a dataset {#recoding-columns-in-a-dataset}
