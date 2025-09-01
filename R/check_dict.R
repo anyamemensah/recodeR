@@ -46,7 +46,7 @@ check_dict <- function(df,
     stop(paste0("The 'df' argument is empty."))
   }
   
-  message(paste0("'", df_name, "' is a valid column in '", df_name, "'. \u2714"))
+  message(paste0("'", df_name, "' is a valid data.frame.'. \u2714"))
   
   # Check 'var_col' is a character vector of length one and exists in 'df'
   if (!is.character(var_col) || length(var_col) != 1) {
