@@ -2,8 +2,8 @@
 
 Welcome to the `recodeR` package. `recodeR` is an R package for recoding
 values in data.frames and tibbles. If you notice a bug or have trouble
-using a function, please contact [Ama
-Nyame-Mensah](mailto:ama@anyamemensah.com), the package’s maintainer.
+using a function, please contact Ama Nyame-Mensah
+<ama@anyamemensah.com>, the package’s maintainer.
 
 ## Table of Contents
 
@@ -46,10 +46,10 @@ following:
     variable/column.
 3.  A `labels_col` column with the new values/labels that will replace
     the old ones for each variable/column.
-4.  A default_col column contains default values to use when no matching
-    old value is found for each variable/column. NOTE: To keep the
-    original value as the default, use `.x`. Blank entries will default
-    to `NA`.
+4.  A `default_col` column contains default values to use when no
+    matching old value is found for each variable/column. NOTE: To keep
+    the original value as the default, use `.x`. Blank entries will
+    default to `NA`.
 5.  A `string_col` column indicating whether the new values are
     strings (1) or not (0).
 
@@ -57,25 +57,6 @@ The `grad_app_dict` dataset, provided with the `recodeR` package, shows
 how to set up a sample data dictionary in a flat file format, where each
 unique column in your dataset is associated with multiple rows. To learn
 more about this dataset, use `?grad_app_dict`.
-
-``` r
-grad_app_dict
-```
-
-    ## # A tibble: 116 × 6
-    ##    column_name      column_description      old_values new_labels default string
-    ##    <chr>            <chr>                   <chr>      <chr>      <chr>    <dbl>
-    ##  1 school_decision  School decision         A          Accepted   No Ent…      1
-    ##  2 school_decision  School decision         W          Waitlisted No Ent…      1
-    ##  3 school_decision  School decision         R          Rejected   No Ent…      1
-    ##  4 student_decision Student response        A          Accepted … No Ent…      1
-    ##  5 student_decision Student response        D          Declined … No Ent…      1
-    ##  6 ft_pt            Full-time or Part-time… pt         Part-time  No Ent…      1
-    ##  7 ft_pt            Full-time or Part-time… ft         Full-time  No Ent…      1
-    ##  8 ft_pt            Full-time or Part-time… sub        Submatric… No Ent…      1
-    ##  9 applied_dual_prg Applied to  dual degre… NODUAL     No         No Ent…      1
-    ## 10 applied_dual_prg Applied to  dual degre… YES        Yes        No Ent…      1
-    ## # ℹ 106 more rows
 
 The `create_recode_dict()` function creates a list of ‘recoding’
 dictionaries: one for string variables and another for numeric variables
@@ -117,6 +98,22 @@ recoding_dict
     ## 1 gre_analytical <list [13]>      -999      0
     ## 2 gre_quant      <list [41]>      -999      0
     ## 3 gre_verbal     <list [41]>      -999      0
+
+``` r
+recoding_dict$string$formula_pairs[[6]]
+```
+
+    ## [[1]]
+    ## "A" ~ "Accepted"
+    ## <environment: 0x13d4a1e40>
+    ## 
+    ## [[2]]
+    ## "W" ~ "Waitlisted"
+    ## <environment: 0x13d4a2818>
+    ## 
+    ## [[3]]
+    ## "R" ~ "Rejected"
+    ## <environment: 0x13d49fa50>
 
 Sometimes, data dictionaries are created with one row of data for each
 unique column/variable in the dataset, where the old and new values to
@@ -219,6 +216,22 @@ expanded_recoding_dict
     ## 1 gre_analytical <list [13]>      -999      0
     ## 2 gre_quant      <list [41]>      -999      0
     ## 3 gre_verbal     <list [41]>      -999      0
+
+``` r
+expanded_recoding_dict$string$formula_pairs[[6]]
+```
+
+    ## [[1]]
+    ## "A" ~ "Accepted"
+    ## <environment: 0x10fecdb90>
+    ## 
+    ## [[2]]
+    ## "W" ~ "Waitlisted"
+    ## <environment: 0x10fecd228>
+    ## 
+    ## [[3]]
+    ## "R" ~ "Rejected"
+    ## <environment: 0x10fed07d0>
 
 ## Recoding columns in a dataset
 
