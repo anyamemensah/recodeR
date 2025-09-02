@@ -158,7 +158,7 @@ expand_delim_dict <- function(df,
 
   the_expanded_df <- dplyr::bind_rows(new_df)
 
-  # Check 'final_df' against specific criteria
+  # Check 'the_expanded_df' against specific criteria
   if (check_df) {
     check_dict(df = the_expanded_df,
                var_col = var_col,

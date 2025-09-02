@@ -71,7 +71,7 @@ recode_cols <- function(df,
     string <- TRUE
   } 
   
-  # Check for 'x' as string'
+  # Check for 'x' as 'string'
   if (string && !is.character(x)) {
     x <- as.character(x)
   } 
