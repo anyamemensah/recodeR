@@ -42,10 +42,10 @@ following:
 
 1.  A `var_col` column with the unique variable/column names from your
     dataset.
-2.  A `values_col` column with the original (old) values for each
+2.  A `from_col` column with the original (old) values for each
     variable/column.
-3.  A `labels_col` column with the new values/labels that will replace
-    the old ones for each variable/column.
+3.  A `to_col` column with the new values/labels that will replace the
+    old ones for each variable/column.
 4.  A `default_col` column contains default values to use when no
     matching old value is found for each variable/column. NOTE: To keep
     the original value as the default, use `.x`. Blank entries will
@@ -71,8 +71,8 @@ whether the new values to be applied are strings (1) or not (0).
 ``` r
 recoding_dict <- create_recode_dict(df = grad_app_dict,
                                     var_col = "column_name",
-                                    values_col = "old_values",
-                                    labels_col = "new_labels",
+                                    from_col = "old_values",
+                                    to_col = "new_labels",
                                     default_col = "default",
                                     string_col = "string")
 
@@ -105,15 +105,15 @@ recoding_dict$string$formula_pairs[[6]]
 
     ## [[1]]
     ## "A" ~ "Accepted"
-    ## <environment: 0x13d4a1e40>
+    ## <environment: 0x124b523c8>
     ## 
     ## [[2]]
     ## "W" ~ "Waitlisted"
-    ## <environment: 0x13d4a2818>
+    ## <environment: 0x124a44040>
     ## 
     ## [[3]]
     ## "R" ~ "Rejected"
-    ## <environment: 0x13d49fa50>
+    ## <environment: 0x124a41518>
 
 Sometimes, data dictionaries are created with one row of data for each
 unique column/variable in the dataset, where the old and new values to
@@ -135,12 +135,12 @@ data dictionary meets the required criteria for use with the
 ``` r
 expanded_dict <- expand_delim_dict(df = grad_app_dict_delim,
                                    var_col = "column_name",
-                                   values_col = "old_values",
-                                   labels_col = "new_labels",
+                                   from_col = "old_values",
+                                   to_col = "new_labels",
                                    default_col = "default",
                                    string_col = "string",
-                                   value_delim = ";",
-                                   label_delim = ";")
+                                   from_delim = ";",
+                                   to_delim = ";")
 ```
 
     ## 'the_expanded_df' is a valid data.frame.'. ✔
@@ -189,8 +189,8 @@ dictionary.
 ``` r
 expanded_recoding_dict <- create_recode_dict(df = expanded_dict,
                                              var_col = "column_name",
-                                             values_col = "old_values",
-                                             labels_col = "new_labels",
+                                             from_col = "old_values",
+                                             to_col = "new_labels",
                                              default_col = "default",
                                              string_col = "string")
 
@@ -223,15 +223,15 @@ expanded_recoding_dict$string$formula_pairs[[6]]
 
     ## [[1]]
     ## "A" ~ "Accepted"
-    ## <environment: 0x10fecdb90>
+    ## <environment: 0x132fc1ee0>
     ## 
     ## [[2]]
     ## "W" ~ "Waitlisted"
-    ## <environment: 0x10fecd228>
+    ## <environment: 0x132fc1578>
     ## 
     ## [[3]]
     ## "R" ~ "Rejected"
-    ## <environment: 0x10fed07d0>
+    ## <environment: 0x132f8bb20>
 
 ## Recoding columns in a dataset
 

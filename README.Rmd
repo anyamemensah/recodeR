@@ -35,8 +35,8 @@ A data dictionary is a helpful guide for changing the values in a dataset. It li
 You can convert your standard data dictionary into a recoding data dictionary in R using the `create_recode_dict()` function. Before running the function, make sure your data dictionary includes the following:
 
 1. A `var_col` column with the unique variable/column names from your dataset.
-2. A `values_col` column with the original (old) values for each variable/column.
-3. A `labels_col` column with the new values/labels that will replace the old ones for each variable/column.
+2. A `from_col` column with the original (old) values for each variable/column.
+3. A `to_col` column with the new values/labels that will replace the old ones for each variable/column.
 4. A `default_col` column contains default values to use when no matching old value is found for each variable/column. NOTE: To keep the original value as the default, use `.x`. Blank entries will default to `NA`.
 5. A `string_col` column indicating whether the new values are strings (1) or not (0).
 
@@ -47,8 +47,8 @@ The `create_recode_dict()` function creates a list of 'recoding' dictionaries: o
 ```{r create_recode1, echo = TRUE}
 recoding_dict <- create_recode_dict(df = grad_app_dict,
                                     var_col = "column_name",
-                                    values_col = "old_values",
-                                    labels_col = "new_labels",
+                                    from_col = "old_values",
+                                    to_col = "new_labels",
                                     default_col = "default",
                                     string_col = "string")
 
@@ -66,12 +66,12 @@ If your data dictionary is in a delimited format, you can use the `expand_delim_
 ```{r expand_dict, echo = TRUE}
 expanded_dict <- expand_delim_dict(df = grad_app_dict_delim,
                                    var_col = "column_name",
-                                   values_col = "old_values",
-                                   labels_col = "new_labels",
+                                   from_col = "old_values",
+                                   to_col = "new_labels",
                                    default_col = "default",
                                    string_col = "string",
-                                   value_delim = ";",
-                                   label_delim = ";")
+                                   from_delim = ";",
+                                   to_delim = ";")
 
 expanded_dict
 ```
@@ -81,8 +81,8 @@ After the data dictionary passes all checks, use the `create_recode_dict()` func
 ```{r expand_recode_dict, echo = TRUE}
 expanded_recoding_dict <- create_recode_dict(df = expanded_dict,
                                              var_col = "column_name",
-                                             values_col = "old_values",
-                                             labels_col = "new_labels",
+                                             from_col = "old_values",
+                                             to_col = "new_labels",
                                              default_col = "default",
                                              string_col = "string")
 
