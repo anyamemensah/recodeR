@@ -147,17 +147,14 @@ create_recode_dict <- function(df,
       dplyr::filter(!!rlang::sym(string_col) == is_string) |>
       dplyr::mutate(dplyr::across(
         .cols = dplyr::all_of(c(from_col, to_col, default_col)),
-        .fns = if (is_string)
-          as.character
-        else
-          as.numeric
-      )) |>
+        .fns = if (is_string) as.character else as.numeric)
+        ) |>
       dplyr::group_by(!!rlang::sym(var_col)) |>
       dplyr::summarize(
         formula_pairs = list(
           .tbl_key(
-            values = !!rlang::sym(from_col),
-            labels = !!rlang::sym(to_col),
+            values_from = !!rlang::sym(from_col),
+            values_to = !!rlang::sym(to_col),
             string = unique(!!rlang::sym(string_col))
           )
         ),

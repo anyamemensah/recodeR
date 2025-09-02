@@ -6,7 +6,6 @@
 #' @importFrom dplyr all_of
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr case_match
-#' @importFrom dplyr case_when
 #' @importFrom dplyr cur_column
 #' @importFrom dplyr filter
 #' @importFrom dplyr group_by
@@ -22,6 +21,7 @@
 #' @importFrom rlang .data
 #' @importFrom rlang :=
 #' @importFrom rlang new_formula
+#' @importFrom rlang is_formula
 #' @importFrom stringr str_squish
 ## usethis namespace: end
 NULL

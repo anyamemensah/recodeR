@@ -30,7 +30,7 @@ recode_cols <- function(df,
       df <- df |>
         dplyr::mutate(dplyr::across(
           .cols = dplyr::all_of(unique(dict[[var_col]])),
-          .fn = ~ .return_recoded_vctr(
+          .fn = ~ .find_recoding_entry(
             x = df[[dplyr::cur_column()]],
             current_col = dplyr::cur_column(),
             dict = dict,
@@ -50,75 +50,75 @@ recode_cols <- function(df,
 
 #' @keywords internal
 .return_recoded_vctr <- function(x,
+                                 formula_pairs,
+                                 default = NULL,
+                                 string = NULL) {
+  
+  # Check 'x' is a vector
+  if (!is.vector(x)) {
+    stop("'x' must be a vector with a length of at least one.")
+  }
+  
+  # Check all elements of 'formula_pairs' inherit from 'formula'
+  all_formula <- vapply(formula_pairs, rlang::is_formula, logical(1))
+  
+  if (!all(all_formula)) {
+    stop("Invalid 'formula_pairs' argument. 'formula_pairs' must inherit from 'formula'.")
+  }
+  
+  # Default string to TRUE if NULL
+  if (is.null(string)) {
+    string <- TRUE
+  } 
+  
+  # Check for 'x' as string'
+  if (string && !is.character(x)) {
+    x <- as.character(x)
+  } 
+  
+  # Check 'default'
+  if (!is.null(default)) {
+    default_result <- unique(default)
+    # If 'default' values are found
+    if (length(default_result) > 0) {
+      if (length(default_result) > 1) {
+        # Warn if more than one 'default' value found
+        warning("Multiple unique default values detected. Using the first entry.")
+      }
+      # Set 'default' value
+      default_val <- default_result[1]
+    } else {
+      # If no 'default' value is found then NA is used
+      default_val <- NA
+    }
+  } else {
+    # Use 'default' if provided or NA if 'default' is NULL
+    default_val <- default %||% NA
+  }
+  
+  dplyr::case_match(.x = x, !!!formula_pairs, .default = default_val)
+}
+
+
+#' @keywords internal
+.find_recoding_entry <- function(x,
                                  current_col,
                                  dict,
                                  var_col = "var",
                                  formula_pairs_col = "formula_pairs",
-                                 default = NULL,
-                                 default_col = NULL,
-                                 string = NULL,
-                                 string_col = NULL) {
+                                 default_col = "default",
+                                 string_col = "string") {
+  
 
-  two_sided_formulas <-
-    .find_two_sided(
-      dict = dict,
-      current_col = current_col,
-      var_col = var_col,
-      formula_pairs_col = formula_pairs_col
-    )
-
-  if (!is.null(default_col) && is.null(default)) {
-    default_result <- dict[dict[[var_col]] == current_col, ][[default_col]]
-    default_result <- unique(default_result)
-
-    # If default values are found
-    if (length(default_result) > 0) {
-      if (length(default_result) > 1) {
-        # Warn if more than one default value found
-        warning(
-          paste0(
-            "More than one unique default value found for ",
-            current_col,
-            ". First entry is being used."
-          )
-        )
-      }
-      # Set default value
-      default_val <- default_result[1]
-    } else {
-      # If no default value is found then NA is used
-      default_val <- NA
-    }
-  } else {
-    # Use default if provided or NA if default is NULL
-    default_val <- default %||% NA
-  }
-
-  string <-
-    if (is.null(string) && is.null(string_col)) {
-      TRUE
-    } else if (!is.null(string)) {
-      string
-    } else {
-      dict[dict[[var_col]] == current_col, ][[string_col]]
-    }
-
-  current_vec <- {
-    if (string) {
-      as.character(x)
-    } else {
-      x
-    }
-  }
-
-  dplyr::case_match(.x = current_vec, !!!two_sided_formulas, .default = {
-    if (is.na(default_val)) {
-      NA
-    } else if (default_val != ".x") {
-      default_val
-    } else {
-      current_vec
-    }
-  })
+  current_entry <- 
+    dict |> dplyr::filter(!!rlang::sym(var_col) == current_col)
+  
+  .return_recoded_vctr(x = x, 
+                       formula_pairs = unlist(current_entry[[formula_pairs_col]]),
+                       default = current_entry[[default_col]], 
+                       string = current_entry[[string_col]]
+                       )
+  
 }
 
+  
