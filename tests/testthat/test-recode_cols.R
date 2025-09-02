@@ -33,8 +33,8 @@ test_that("'recode_cols' function returns expected data.frame with recoded value
     create_recode_dict(df = observed_dict, 
                        dict_type = "all",
                        var_col = "variable", 
-                       values_col = "old_values", 
-                       labels_col = "new_values", 
+                       from_col = "old_values", 
+                       to_col = "new_values", 
                        default_col = "default", 
                        string_col = "string")
   

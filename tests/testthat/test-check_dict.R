@@ -20,8 +20,8 @@ test_that("'df' argument is not a data.frame or tibble.", {
     check_dict(
       df = NULL,
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = FALSE,
@@ -34,8 +34,8 @@ test_that("'df' argument is not a data.frame or tibble.", {
     check_dict(
       df = NA,
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = FALSE,
@@ -48,8 +48,8 @@ test_that("'df' argument is not a data.frame or tibble.", {
     check_dict(
       df = 1:3,
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = FALSE,
@@ -65,8 +65,8 @@ test_that("'df' argument is an empty data.frame or tibble.", {
     check_dict(
       df = tibble::tibble(),
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = FALSE,
@@ -79,8 +79,8 @@ test_that("'df' argument is an empty data.frame or tibble.", {
     check_dict(
       df = data.frame(),
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = FALSE,
@@ -97,8 +97,8 @@ test_that("'var_col' argument is not a character vector of length one, nor does 
               check_dict(
                 df = dict_pass,
                 var_col = c("column_name", "variable"),
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string",
                 remove_na = FALSE,
@@ -111,8 +111,8 @@ test_that("'var_col' argument is not a character vector of length one, nor does 
               check_dict(
                 df = dict_pass,
                 var_col = "column_name",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string",
                 remove_na = FALSE,
@@ -123,66 +123,66 @@ test_that("'var_col' argument is not a character vector of length one, nor does 
           })
 
 
-test_that("'values_col' argument is not a character vector of length one, nor does it exist in 'df'",
+test_that("'from_col' argument is not a character vector of length one, nor does it exist in 'df'",
           {
             expect_error(
               check_dict(
                 df = dict_pass,
                 var_col = "variable",
-                values_col = c("val", "old_values"),
-                labels_col = "new_values",
+                from_col = c("val", "old_values"),
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string",
                 remove_na = FALSE,
                 remove_empty = FALSE
               ),
-              "Invalid 'values_col' argument. 'values_col' must be a character vector of length one."
+              "Invalid 'from_col' argument. 'from_col' must be a character vector of length one."
             )
             
             expect_error(
               check_dict(
                 df = dict_pass,
                 var_col = "variable",
-                values_col = "vals",
-                labels_col = "new_values",
+                from_col = "vals",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string",
                 remove_na = FALSE,
                 remove_empty = FALSE
               ),
-              "The 'values_col' argument is not a column in 'df'."
+              "The 'from_col' argument is not a column in 'df'."
             )
           })
 
 
-test_that("'labels_col' argument is not a character vector of length one, nor does it exist in 'df'",
+test_that("'to_col' argument is not a character vector of length one, nor does it exist in 'df'",
           {
             expect_error(
               check_dict(
                 df = dict_pass,
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = c("labels", "new_values"),
+                from_col = "old_values",
+                to_col = c("labels", "new_values"),
                 default_col = "default",
                 string_col = "string",
                 remove_na = FALSE,
                 remove_empty = FALSE
               ),
-              "Invalid 'labels_col' argument. 'labels_col' must be a character vector of length one."
+              "Invalid 'to_col' argument. 'to_col' must be a character vector of length one."
             )
             
             expect_error(
               check_dict(
                 df = dict_pass,
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "new_labels",
+                from_col = "old_values",
+                to_col = "new_labels",
                 default_col = "default",
                 string_col = "string",
                 remove_na = FALSE,
                 remove_empty = FALSE
               ),
-              "The 'labels_col' argument is not a column in 'df'."
+              "The 'to_col' argument is not a column in 'df'."
             )
           })
 
@@ -193,8 +193,8 @@ test_that("'default_col' argument is not a character vector of length one, nor d
               check_dict(
                 df = dict_pass,
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = c("default", "default_col"),
                 string_col = "string",
                 remove_na = FALSE,
@@ -207,8 +207,8 @@ test_that("'default_col' argument is not a character vector of length one, nor d
               check_dict(
                 df = dict_pass,
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "default_vals",
                 string_col = "string",
                 remove_na = FALSE,
@@ -225,8 +225,8 @@ test_that("'string_col' argument is not a character vector of length one, nor do
               check_dict(
                 df = dict_pass,
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = c("string", "string_col"),
                 remove_na = FALSE,
@@ -239,8 +239,8 @@ test_that("'string_col' argument is not a character vector of length one, nor do
               check_dict(
                 df = dict_pass,
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string_col",
                 remove_na = FALSE,
@@ -256,8 +256,8 @@ test_that("'remove_na' argument is not a logical vector of length one", {
     check_dict(
       df = dict_pass,
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = c(FALSE, TRUE),
@@ -270,8 +270,8 @@ test_that("'remove_na' argument is not a logical vector of length one", {
     check_dict(
       df = dict_pass,
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = c(0, 1),
@@ -287,8 +287,8 @@ test_that("'remove_empty' argument is not a logical vector of length one", {
     check_dict(
       df = dict_pass,
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = FALSE,
@@ -301,8 +301,8 @@ test_that("'remove_empty' argument is not a logical vector of length one", {
     check_dict(
       df = dict_pass,
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = FALSE,
@@ -327,8 +327,8 @@ test_that("'One variable in the dictionary only has a single row of data in the 
               check_dict(
                 df = dict_error,
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string",
                 remove_na = FALSE,
@@ -356,8 +356,8 @@ test_that("'One variable has more than one string value associated with it", {
     check_dict(
       df = dict_error,
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = FALSE,
@@ -385,8 +385,8 @@ test_that("'One variable has more than one string value associated with it", {
     check_dict(
       df = dict_error,
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string",
       remove_na = FALSE,
@@ -406,8 +406,8 @@ test_that("'check_dict' returns original 'df' with all checks passed.", {
   observed <- check_dict(
     df = dict_pass,
     var_col = "variable",
-    values_col = "old_values",
-    labels_col = "new_values",
+    from_col = "old_values",
+    to_col = "new_values",
     default_col = "default",
     string_col = "string",
     remove_na = FALSE,

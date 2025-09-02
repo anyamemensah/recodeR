@@ -20,8 +20,8 @@ test_that("'df' argument is not a data.frame or tibble.", {
     df = NULL,
     dict_type = "all",
     var_col = "variable",
-    values_col = "old_values",
-    labels_col = "new_values",
+    from_col = "old_values",
+    to_col = "new_values",
     default_col = "default",
     string_col = "string"
   ), "The 'df' argument is not a data.frame")
@@ -31,8 +31,8 @@ test_that("'df' argument is not a data.frame or tibble.", {
     df = 1:10,
     dict_type = "all",
     var_col = "variable",
-    values_col = "old_values",
-    labels_col = "new_values",
+    from_col = "old_values",
+    to_col = "new_values",
     default_col = "default",
     string_col = "string"
   ), "The 'df' argument is not a data.frame")
@@ -45,8 +45,8 @@ test_that("'df' argument is an empty data.frame or tibble.", {
     df = tibble::tibble(),
     dict_type = "all",
     var_col = "variable",
-    values_col = "old_values",
-    labels_col = "new_values",
+    from_col = "old_values",
+    to_col = "new_values",
     default_col = "default",
     string_col = "string"
   ), "The 'df' argument is empty.")
@@ -56,8 +56,8 @@ test_that("'df' argument is an empty data.frame or tibble.", {
       df = data.frame(),
       dict_type = "all",
       var_col = "variable",
-      values_col = "old_values",
-      labels_col = "new_values",
+      from_col = "old_values",
+      to_col = "new_values",
       default_col = "default",
       string_col = "string"
     ), "The 'df' argument is empty.")
@@ -71,8 +71,8 @@ test_that("'var_col' argument is not a character vector of length one, nor does 
                 df = dict,
                 dict_type = "all",
                 var_col = c("var","var_names"),
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string"
               ),
@@ -84,8 +84,8 @@ test_that("'var_col' argument is not a character vector of length one, nor does 
                 df = dict,
                 dict_type = "all",
                 var_col = "vars",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string"
               ),
@@ -94,19 +94,19 @@ test_that("'var_col' argument is not a character vector of length one, nor does 
           })
 
 
-test_that("'values_col' argument is not a character vector of length one, nor does it exist in 'df'",
+test_that("'from_col' argument is not a character vector of length one, nor does it exist in 'df'",
           {
             expect_error(
               create_recode_dict(
                 df = dict,
                 dict_type = "all",
                 var_col = "variable",
-                values_col = c("val", "old_values"),
-                labels_col = "new_values",
+                from_col = c("val", "old_values"),
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string"
               ),
-              "Invalid 'values_col' argument. 'values_col' must be a character vector of length one."
+              "Invalid 'from_col' argument. 'from_col' must be a character vector of length one."
             )
             
             expect_error(
@@ -114,29 +114,29 @@ test_that("'values_col' argument is not a character vector of length one, nor do
                 df = dict,
                 dict_type = "all",
                 var_col = "variable",
-                values_col = "vals",
-                labels_col = "new_values",
+                from_col = "vals",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string"
               ),
-              "The 'values_col' argument is not a column in 'df'."
+              "The 'from_col' argument is not a column in 'df'."
             )
           })
 
 
-test_that("'labels_col' argument is not a character vector of length one, nor does it exist in 'df'",
+test_that("'to_col' argument is not a character vector of length one, nor does it exist in 'df'",
           {
             expect_error(
               create_recode_dict(
                 df = dict,
                 dict_type = "all",
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = c("labels", "new_values"),
+                from_col = "old_values",
+                to_col = c("labels", "new_values"),
                 default_col = "default",
                 string_col = "string"
               ),
-              "Invalid 'labels_col' argument. 'labels_col' must be a character vector of length one."
+              "Invalid 'to_col' argument. 'to_col' must be a character vector of length one."
             )
             
             expect_error(
@@ -144,12 +144,12 @@ test_that("'labels_col' argument is not a character vector of length one, nor do
                 df = dict,
                 dict_type = "all",
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "labs",
+                from_col = "old_values",
+                to_col = "labs",
                 default_col = "default",
                 string_col = "string"
               ),
-              "The 'labels_col' argument is not a column in 'df'."
+              "The 'to_col' argument is not a column in 'df'."
             )
           })
 
@@ -161,8 +161,8 @@ test_that("'default_col' argument is not a character vector of length one, nor d
                 df = dict,
                 dict_type = "all",
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = c("default", "def_col"),
                 string_col = "string"
               ),
@@ -174,8 +174,8 @@ test_that("'default_col' argument is not a character vector of length one, nor d
                 df = dict,
                 dict_type = "all",
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "def_col",
                 string_col = "string"
               ),
@@ -191,8 +191,8 @@ test_that("'string_col' argument is not a character vector of length one, nor do
                 df = dict,
                 dict_type = "all",
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = c("string", "string_col")
               ),
@@ -204,8 +204,8 @@ test_that("'string_col' argument is not a character vector of length one, nor do
                 df = dict,
                 dict_type = "all",
                 var_col = "variable",
-                values_col = "old_values",
-                labels_col = "new_values",
+                from_col = "old_values",
+                to_col = "new_values",
                 default_col = "default",
                 string_col = "string_col"
               ),
@@ -229,8 +229,8 @@ test_that("'create_recode_dict' returns a list of data.frames: string df is popu
       df = dict_observed,
       dict_type = "all",
       var_col = "col_name",
-      values_col = "old_vals",
-      labels_col = "new_vals",
+      from_col = "old_vals",
+      to_col = "new_vals",
       default_col = "default",
       string_col = "string"
     )
