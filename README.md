@@ -29,7 +29,7 @@ A data dictionary is a helpful guide for changing the values in a
 dataset. It lists unique column/variable names, the original
 column/variable values/labels, the new recoded values/labels, and other
 useful details for working with the data, such as column/variable
-descriptions. The recodeR package includes tools that make it easy to
+descriptions. The `recodeR` package includes tools that make it easy to
 turn ‘regular’ data dictionaries into ones that R can use to quickly
 update variable values/labels.
 
@@ -103,15 +103,15 @@ recoding_dict$string$formula_pairs[[6]]
 
     ## [[1]]
     ## "A" ~ "Accepted"
-    ## <environment: 0x1048a9040>
+    ## <environment: 0x103a2ce40>
     ## 
     ## [[2]]
     ## "W" ~ "Waitlisted"
-    ## <environment: 0x1048a9a18>
+    ## <environment: 0x103a2d818>
     ## 
     ## [[3]]
     ## "R" ~ "Rejected"
-    ## <environment: 0x1048a6c50>
+    ## <environment: 0x103a2aa50>
 
 Sometimes, data dictionaries are created with one row of data for each
 unique column/variable in the dataset, where the old and new values to
@@ -221,15 +221,15 @@ expanded_recoding_dict$string$formula_pairs[[6]]
 
     ## [[1]]
     ## "A" ~ "Accepted"
-    ## <environment: 0x10682d620>
+    ## <environment: 0x105de2e20>
     ## 
     ## [[2]]
     ## "W" ~ "Waitlisted"
-    ## <environment: 0x10682cc80>
+    ## <environment: 0x105de2480>
     ## 
     ## [[3]]
     ## "R" ~ "Rejected"
-    ## <environment: 0x10682c318>
+    ## <environment: 0x105de1b18>
 
 ## Recoding columns in a dataset
 

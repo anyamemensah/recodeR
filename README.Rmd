@@ -28,7 +28,7 @@ library(recodeR)
 
 ## A Note on data dictionaries {#a-note-on-data-dictionaries}
 
-A data dictionary is a helpful guide for changing the values in a dataset. It lists unique column/variable names, the original column/variable values/labels, the new recoded values/labels, and other useful details for working with the data, such as column/variable descriptions. The recodeR package includes tools that make it easy to turn 'regular' data dictionaries into ones that R can use to quickly update variable values/labels.
+A data dictionary is a helpful guide for changing the values in a dataset. It lists unique column/variable names, the original column/variable values/labels, the new recoded values/labels, and other useful details for working with the data, such as column/variable descriptions. The `recodeR` package includes tools that make it easy to turn 'regular' data dictionaries into ones that R can use to quickly update variable values/labels.
 
 ## Creating a 'recoding' data dictionary {#creating-a-recoding-data-dictionary}
 
