@@ -1,16 +1,17 @@
-#' @title Recode columns/variables in a dataset
+#' @title Recode variable values
 #'
-#' @description Recodes values in an atomic vector using a 'recoding' dictionary, which
-#' comprises of a series of two-sided formulas to define a mapping from old values to
-#' new values.
-#' @param df A data.frame or tibble.
+#' @description `recode_cols()` recodes the values of variables in a data frame using a 'recoding' 
+#' dictionary, which comprises of a series of two-sided formulas to define a mapping from old values 
+#' to new ones
+#' 
+#' @param df A data frame.
 #' @param list_of_dicts A list of 'recoding' dictionaries.
-#' @param var_col A character string of the name of the column in `list_of_dicts` that contains
-#' unique variable/column names in your dataset.
+#' @param var_col A character string of the name of the column in `list_of_dicts` that contains 
+#' unique variable names in your dataset.
 #' @param formula_pairs_col A character string of the name of the column in `list_of_dicts` that
 #' contains a sequence of two-sided formulas for recoding variable values.
-#' @param default_col A character string of the name of the column in `list_of_dicts` that holds
-#' default values to use when a matching (old) value is not found.
+#' @param default_col A character string of the name of the column in `list_of_dicts` that contains
+#' a fallback value for any unmatched original values.
 #' @param string_col A character string of the name of the column in `list_of_dicts` that
 #' indicates whether the new values to be mapped onto the variable are string.
 #'

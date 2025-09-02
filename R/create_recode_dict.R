@@ -1,27 +1,27 @@
-#' @title Create a recoding data dictionary
+#' @title Create a 'recoding' data dictionary
 #'
-#' @description Creates a 'recoding' dictionary for string and numeric variables.
-#' Each dictionary includes unique column names from a dataset to recode, a series of
-#' two-sided formulas to define a mapping from old values to new values, default values
-#' to use when a matching (old) value is not found, and a column indicating whether the new
-#' values to be applied to each unique column are string (1) or not (0).
-#' @param df A data.frame or tibble containing unique variable values and value labels
-#' for variables in a dataset. Two optional columns can also be included: `default`, a
-#' default value for old values without a new mapped value/label and `string`, a logical
-#' column indicating whether the new values to be mapped onto the variable are string (1)
-#' or not (0).
-#' @param dict_type Character string of a type of dictionary to create. Must be one
-#' of `all`, `string`, or `numeric`. Default is `all`.
-#' @param var_col Character string of the name of the column in `df` that contains unique
-#' variable/column names in your dataset.
-#' @param values_col A character string specifying the name of the column in `df` that holds
-#' the unique values for each variable/column in your dataset.
-#' @param labels_col A character string specifying the name of the column in `df` that holds
-#' the unique values/labels to replace old values for each variable/column in your dataset.
-#' @param default_col A character string specifying the name of the column in `df` that holds
-#' default values to use when a matching (old) value is not found.
-#' @param string_col A character string specifying the name of the column in `df` that
-#' indicates whether the new values to be mapped onto the variable are string.
+#' @description Generates a 'recoding' dictionary for both string and numeric variables. 
+#' Each dictionary contains unique variable names from a dataset that require recoding, 
+#' a set of two-sided formulas for mapping old values to new ones, default values for 
+#' unmatched cases, and a flag indicating if the new values for each column are strings 
+#' (1) or not (0).
+#' 
+#' @param df A data frame that lists the unique values and corresponding labels for variables 
+#' in a dataset. It should also include two additional columns: `default`, which specifies a 
+#' fallback value for any unmatched original values, and `string`, a logical indicator denoting 
+#' whether the new mapped values are strings (1) or not (0).
+#' @param dict_type A character string of the type of dictionary to create. Must be one of 
+#' `all`, `string`, or `numeric`. Default is `all`.
+#' @param var_col A character string of the name of the column in `df` that contains unique
+#' variable names in your dataset.
+#' @param from_col A character string specifying the name of the column in `df` that contains 
+#' the original values (`from_values`) for each variable in your dataset.
+#' @param to_col A character string specifying the name of the column in `df` that contains 
+#' the new values (`to_values`) for each variable in your dataset.
+#' @param default_col A character string specifying the name of the column in `df` that contains
+#' a fallback value for any unmatched original values.
+#' @param string_col A character string specifying the name of the column in `df` that indicates 
+#' whether the new values to be mapped onto the variable are string.
 #'
 #' @return A tibble
 #'
@@ -29,8 +29,8 @@
 create_recode_dict <- function(df,
                                dict_type = "all",
                                var_col = "var",
-                               values_col = "values",
-                               labels_col = "labels",
+                               from_col = "values",
+                               to_col = "labels",
                                default_col = "default",
                                string_col = "string") {
 
@@ -71,22 +71,22 @@ create_recode_dict <- function(df,
     stop("The 'var_col' argument is not a column in 'df'.")
   }
 
-  # Check 'values_col' is a character vector of length one and exists in 'df'
-  if (!is.character(values_col) || length(values_col) != 1) {
-    stop("Invalid 'values_col' argument. 'values_col' must be a character vector of length one.")
+  # Check 'from_col' is a character vector of length one and exists in 'df'
+  if (!is.character(from_col) || length(from_col) != 1) {
+    stop("Invalid 'from_col' argument. 'from_col' must be a character vector of length one.")
   }
   
-  if (! values_col %in% colnames(df)) {
-    stop("The 'values_col' argument is not a column in 'df'.")
+  if (! from_col %in% colnames(df)) {
+    stop("The 'from_col' argument is not a column in 'df'.")
   }
 
-  # Check 'labels_col' is a character vector of length one and exists in 'df'
-  if (!is.character(labels_col) || length(labels_col) != 1) {
-    stop("Invalid 'labels_col' argument. 'labels_col' must be a character vector of length one.")
+  # Check 'to_col' is a character vector of length one and exists in 'df'
+  if (!is.character(to_col) || length(to_col) != 1) {
+    stop("Invalid 'to_col' argument. 'to_col' must be a character vector of length one.")
   }
   
-  if (! labels_col %in% colnames(df)) {
-    stop(paste0("The 'labels_col' argument is not a column in 'df'."))
+  if (! to_col %in% colnames(df)) {
+    stop(paste0("The 'to_col' argument is not a column in 'df'."))
   }
 
   # Check 'default_col' is a character vector of length one and exists in 'df'
@@ -120,8 +120,8 @@ create_recode_dict <- function(df,
       .generate_dict(
         df = df,
         var_col = var_col,
-        values_col = values_col,
-        labels_col = labels_col,
+        from_col = from_col,
+        to_col = to_col,
         is_string = is_string,
         string_col = string_col,
         default_col = default_col
@@ -136,8 +136,8 @@ create_recode_dict <- function(df,
 .generate_dict <- function(df,
                            is_string,
                            var_col,
-                           values_col,
-                           labels_col,
+                           from_col,
+                           to_col,
                            default_col,
                            string_col) {
   if (!sum(df[[string_col]] == is_string)) {
@@ -146,7 +146,7 @@ create_recode_dict <- function(df,
     df |>
       dplyr::filter(!!rlang::sym(string_col) == is_string) |>
       dplyr::mutate(dplyr::across(
-        .cols = dplyr::all_of(c(values_col, labels_col, default_col)),
+        .cols = dplyr::all_of(c(from_col, to_col, default_col)),
         .fns = if (is_string)
           as.character
         else
@@ -156,8 +156,8 @@ create_recode_dict <- function(df,
       dplyr::summarize(
         formula_pairs = list(
           .tbl_key(
-            values = !!rlang::sym(values_col),
-            labels = !!rlang::sym(labels_col),
+            values = !!rlang::sym(from_col),
+            labels = !!rlang::sym(to_col),
             string = unique(!!rlang::sym(string_col))
           )
         ),

@@ -2,7 +2,7 @@
 % Please edit documentation in R/recode_cols.R
 \name{recode_cols}
 \alias{recode_cols}
-\title{Recode columns/variables in a dataset}
+\title{Recode variable values}
 \usage{
 recode_cols(
   df,
@@ -14,18 +14,18 @@ recode_cols(
 )
 }
 \arguments{
-\item{df}{A data.frame or tibble.}
+\item{df}{A data frame.}
 
 \item{list_of_dicts}{A list of 'recoding' dictionaries.}
 
-\item{var_col}{A character string of the name of the column in `list_of_dicts` that contains
-unique variable/column names in your dataset.}
+\item{var_col}{A character string of the name of the column in `list_of_dicts` that contains 
+unique variable names in your dataset.}
 
 \item{formula_pairs_col}{A character string of the name of the column in `list_of_dicts` that
 contains a sequence of two-sided formulas for recoding variable values.}
 
-\item{default_col}{A character string of the name of the column in `list_of_dicts` that holds
-default values to use when a matching (old) value is not found.}
+\item{default_col}{A character string of the name of the column in `list_of_dicts` that contains
+a fallback value for any unmatched original values.}
 
 \item{string_col}{A character string of the name of the column in `list_of_dicts` that
 indicates whether the new values to be mapped onto the variable are string.}
@@ -34,7 +34,7 @@ indicates whether the new values to be mapped onto the variable are string.}
 A tibble
 }
 \description{
-Recodes values in an atomic vector using a 'recoding' dictionary, which
-comprises of a series of two-sided formulas to define a mapping from old values to
-new values.
+`recode_cols()` recodes the values of variables in a data frame using a 'recoding' 
+dictionary, which comprises of a series of two-sided formulas to define a mapping from old values 
+to new ones
 }

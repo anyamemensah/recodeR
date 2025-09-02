@@ -2,13 +2,13 @@
 % Please edit documentation in R/check_dict.R
 \name{check_dict}
 \alias{check_dict}
-\title{Check Data Dictionary Structure}
+\title{Check data dictionary structure}
 \usage{
 check_dict(
   df,
   var_col = "var",
-  values_col = "values",
-  labels_col = "labels",
+  from_col = "values",
+  to_col = "labels",
   default_col = "default",
   string_col = "string",
   remove_na = FALSE,
@@ -16,37 +16,37 @@ check_dict(
 )
 }
 \arguments{
-\item{df}{A data.frame or tibble containing unique variable values and value labels
-for variables in a dataset. Two optional columns can also be included: `default`, a
-default value for old values without a new mapped value/label and `string`, a logical
-column indicating whether the new values to be mapped onto the variable are string (1)
-or not (0).}
+\item{df}{A data frame that lists the unique values and corresponding labels for variables 
+in a dataset. It should also include two additional columns: `default`, which specifies a 
+fallback value for any unmatched original values, and `string`, a logical indicator denoting 
+whether the new mapped values are strings (1) or not (0).}
 
-\item{var_col}{Character string of the name of the column in `df` that contains unique
-variable/column names in your dataset.}
+\item{var_col}{A character string of the name of the column in `df` that contains unique
+variable names in your dataset.}
 
-\item{values_col}{A character string specifying the name of the column in `df` that holds
-the unique values for each variable/column in your dataset.}
+\item{from_col}{A character string specifying the name of the column in `df` that contains 
+the original values (`from_values`) for each variable in your dataset.}
 
-\item{labels_col}{A character string specifying the name of the column in `df` that holds
-the unique values/labels to replace old values for each variable/column in your dataset.}
+\item{to_col}{A character string specifying the name of the column in `df` that contains 
+the new values (`to_values`) for each variable in your dataset.}
 
-\item{default_col}{A character string specifying the name of the column in `df` that holds
-default values to use when a matching (old) value is not found.}
+\item{default_col}{A character string specifying the name of the column in `df` that contains
+a fallback value for any unmatched original values.}
 
-\item{string_col}{A character string specifying the name of the column in `df` that
-indicates whether the new values to be mapped onto the variable are string.}
+\item{string_col}{A character string specifying the name of the column in `df` that indicates 
+whether the new values to be mapped onto the variable are string.}
 
-\item{remove_na}{A logical value indicating whether to remove NA values from values/labels.
-Default is `FALSE`.}
+\item{remove_na}{A logical value indicating whether to remove `NA` values from new and old
+values. Default is `FALSE`.}
 
-\item{remove_empty}{A logical value indicating whether to remove empty values from values/
-labels. Default is `FALSE`.}
+\item{remove_empty}{A logical value indicating whether to remove empty values from new and old
+values. Default is `FALSE`.}
 }
 \value{
 A tibble
 }
 \description{
-Checks whether (old) values and (new) values/labels for each unique
-columns/variable in a data dictionary (flat file) are the same length and unique.
+`check_dict()` verfies that the from and to values or labels for each 
+unique variable in a data dictionary (flat file) are the same length and that all 
+entries are unique.
 }

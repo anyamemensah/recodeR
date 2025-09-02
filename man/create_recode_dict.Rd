@@ -2,50 +2,49 @@
 % Please edit documentation in R/create_recode_dict.R
 \name{create_recode_dict}
 \alias{create_recode_dict}
-\title{Create a recoding data dictionary}
+\title{Create a 'recoding' data dictionary}
 \usage{
 create_recode_dict(
   df,
   dict_type = "all",
   var_col = "var",
-  values_col = "values",
-  labels_col = "labels",
+  from_col = "values",
+  to_col = "labels",
   default_col = "default",
   string_col = "string"
 )
 }
 \arguments{
-\item{df}{A data.frame or tibble containing unique variable values and value labels
-for variables in a dataset. Two optional columns can also be included: `default`, a
-default value for old values without a new mapped value/label and `string`, a logical
-column indicating whether the new values to be mapped onto the variable are string (1)
-or not (0).}
+\item{df}{A data frame that lists the unique values and corresponding labels for variables 
+in a dataset. It should also include two additional columns: `default`, which specifies a 
+fallback value for any unmatched original values, and `string`, a logical indicator denoting 
+whether the new mapped values are strings (1) or not (0).}
 
-\item{dict_type}{Character string of a type of dictionary to create. Must be one
-of `all`, `string`, or `numeric`. Default is `all`.}
+\item{dict_type}{A character string of the type of dictionary to create. Must be one of 
+`all`, `string`, or `numeric`. Default is `all`.}
 
-\item{var_col}{Character string of the name of the column in `df` that contains unique
-variable/column names in your dataset.}
+\item{var_col}{A character string of the name of the column in `df` that contains unique
+variable names in your dataset.}
 
-\item{values_col}{A character string specifying the name of the column in `df` that holds
-the unique values for each variable/column in your dataset.}
+\item{from_col}{A character string specifying the name of the column in `df` that contains 
+the original values (`from_values`) for each variable in your dataset.}
 
-\item{labels_col}{A character string specifying the name of the column in `df` that holds
-the unique values/labels to replace old values for each variable/column in your dataset.}
+\item{to_col}{A character string specifying the name of the column in `df` that contains 
+the new values (`to_values`) for each variable in your dataset.}
 
-\item{default_col}{A character string specifying the name of the column in `df` that holds
-default values to use when a matching (old) value is not found.}
+\item{default_col}{A character string specifying the name of the column in `df` that contains
+a fallback value for any unmatched original values.}
 
-\item{string_col}{A character string specifying the name of the column in `df` that
-indicates whether the new values to be mapped onto the variable are string.}
+\item{string_col}{A character string specifying the name of the column in `df` that indicates 
+whether the new values to be mapped onto the variable are string.}
 }
 \value{
 A tibble
 }
 \description{
-Creates a 'recoding' dictionary for string and numeric variables.
-Each dictionary includes unique column names from a dataset to recode, a series of
-two-sided formulas to define a mapping from old values to new values, default values
-to use when a matching (old) value is not found, and a column indicating whether the new
-values to be applied to each unique column are string (1) or not (0).
+Generates a 'recoding' dictionary for both string and numeric variables. 
+Each dictionary contains unique variable names from a dataset that require recoding, 
+a set of two-sided formulas for mapping old values to new ones, default values for 
+unmatched cases, and a flag indicating if the new values for each column are strings 
+(1) or not (0).
 }

@@ -2,68 +2,67 @@
 % Please edit documentation in R/expand_delim_dict.R
 \name{expand_delim_dict}
 \alias{expand_delim_dict}
-\title{Expand a Data Dictionary}
+\title{Expand a delimited data dictionary}
 \usage{
 expand_delim_dict(
   df,
   var_col = "var",
-  values_col = "values",
-  labels_col = "labels",
+  from_col = "values",
+  to_col = "labels",
   default_col = "default",
   string_col = "string",
-  value_delim = ",",
-  label_delim = ";",
+  from_delim = ",",
+  to_delim = ";",
   remove_na = FALSE,
   remove_empty = FALSE,
   check_df = TRUE
 )
 }
 \arguments{
-\item{df}{A data.frame or tibble containing unique variable values and value labels
-for variables in a dataset. Two optional columns can also be included: `default`, a
-default value for old values without a new mapped value/label and `string`, a logical
-column indicating whether the new values to be mapped onto the variable are string (1)
-or not (0).}
+\item{df}{A data frame that lists the unique values and corresponding labels for variables 
+in a dataset. It should also include two additional columns: `default`, which specifies a 
+fallback value for any unmatched original values, and `string`, a logical indicator denoting 
+whether the new mapped values are strings (1) or not (0).}
 
-\item{var_col}{Character string of the name of the column in `df` that contains unique
-variable/column names in your dataset.}
+\item{var_col}{A character string of the name of the column in `df` that contains unique
+variable names in your dataset.}
 
-\item{values_col}{A character string specifying the name of the column in `df` that holds
-the unique values for each variable/column in your dataset.}
+\item{from_col}{A character string specifying the name of the column in `df` that contains 
+the original values (`from_values`) for each variable in your dataset.}
 
-\item{labels_col}{A character string specifying the name of the column in `df` that holds
-the unique values/labels to replace old values for each variable/column in your dataset.}
+\item{to_col}{A character string specifying the name of the column in `df` that contains 
+the new values (`to_values`) for each variable in your dataset.}
 
-\item{default_col}{A character string specifying the name of the column in `df` that holds
-default values to use when a matching (old) value is not found.}
+\item{default_col}{A character string specifying the name of the column in `df` that contains
+a fallback value for any unmatched original values.}
 
-\item{string_col}{A character string specifying the name of the column in `df` that
-indicates whether the new values to be mapped onto the variable are string.}
+\item{string_col}{A character string specifying the name of the column in `df` that indicates 
+whether the new values to be mapped onto the variable are string.}
 
-\item{value_delim}{A character or set of characters used to separate values in the
-`values_col`. Default is a comma `,`.}
+\item{from_delim}{A character or set of characters used to separate values in the
+`from_col`. Default is a comma `,`.}
 
-\item{label_delim}{A character or set of characters used to separate values in the
-`labels_col`. Default is a semi-colon `;`.}
+\item{to_delim}{A character or set of characters used to separate values in the
+`to_col`. Default is a semi-colon `;`.}
 
-\item{remove_na}{A logical value indicating whether to remove NA values from values/labels.
-Default is `FALSE`.}
+\item{remove_na}{A logical value indicating whether to remove `NA` values from new and old
+values. Default is `FALSE`.}
 
-\item{remove_empty}{A logical value indicating whether to remove empty values from values/
-labels. Default is `FALSE`.}
+\item{remove_empty}{A logical value indicating whether to remove empty values from new and old
+values. Default is `FALSE`.}
 
-\item{check_df}{A logical value indicating whether to use the `check_dict` function to verify
-that the expanded data dictionary meets specific criteria necessary for use with the `create_dict`
-function. Default is `TRUE`.}
+\item{check_df}{A logical value indicating whether to use the `check_dict` function to 
+verify that the expanded data dictionary meets specific criteria necessary for use with 
+the `create_dict` function. Default is `TRUE`.}
 }
 \value{
 A tibble
 }
 \description{
-Expands a delimited data dictionary where each row contains unique
-variable/column names, (original) values/labels, (new) values/labels, default
-values to apply when , and an indicator column identifying whether the new values
-to be mapped onto the variable are string. The function transforms the data into
-a structured format where each unique value/label pair for each unique column is
-associated with a row in the data dictionary.
+Expands a delimited data dictionary in which each row represents a unique 
+variable name along with its associated from values (original values), to values (new 
+values), a default value to apply when a from value has no matching to value, and a logical 
+indicator specifying whether the to values are strings (1) or not (0). The function 
+restructures the data so that each unique from/to value pair for each variable is represented 
+as a separate row in the output.
 }
