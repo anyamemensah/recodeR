@@ -42,16 +42,14 @@ following:
 
 1.  A `var_col` column with the unique variable/column names from your
     dataset.
-2.  A `from_col` column with the original (old) values for each
-    variable/column.
-3.  A `to_col` column with the new values/labels that will replace the
-    old ones for each variable/column.
-4.  A `default_col` column contains default values to use when no
-    matching old value is found for each variable/column. NOTE: To keep
-    the original value as the default, use `.x`. Blank entries will
-    default to `NA`.
-5.  A `string_col` column indicating whether the new values are
-    strings (1) or not (0).
+2.  A `from_col` column with the original values for each variable.
+3.  A `to_col` column with the new values that will replace the old ones
+    for each variable.
+4.  A `default_col` column contains a fallback value for any unmatched
+    original values. NOTE: To keep the original value as the default,
+    use `.x`. Blank entries will default to `NA`.
+5.  A `string_col` column indicates whether the new values to be mapped
+    onto the variable are string.
 
 The `grad_app_dict` dataset, provided with the `recodeR` package, shows
 how to set up a sample data dictionary in a flat file format, where each
@@ -64,9 +62,9 @@ in your dataset. To create only a `string` or `numeric` recoding
 dictionary, set the `dict_type` argument to `string` or `numeric`,
 respectively. By default, this argument is set to `all`. Each ‘recoding’
 dictionary contains the unique column names to be recoded, a set of
-two-sided formulas that map old values to new values, default values to
-use when no matching (old) value is found, and a column indicating
-whether the new values to be applied are strings (1) or not (0).
+two-sided formulas that map old values to new one, default values for
+any unmatched original values, and a column indicating whether the new
+values to be applied are strings (1) or not (0).
 
 ``` r
 recoding_dict <- create_recode_dict(df = grad_app_dict,
@@ -105,15 +103,15 @@ recoding_dict$string$formula_pairs[[6]]
 
     ## [[1]]
     ## "A" ~ "Accepted"
-    ## <environment: 0x124b523c8>
+    ## <environment: 0x1048a9040>
     ## 
     ## [[2]]
     ## "W" ~ "Waitlisted"
-    ## <environment: 0x124a44040>
+    ## <environment: 0x1048a9a18>
     ## 
     ## [[3]]
     ## "R" ~ "Rejected"
-    ## <environment: 0x124a41518>
+    ## <environment: 0x1048a6c50>
 
 Sometimes, data dictionaries are created with one row of data for each
 unique column/variable in the dataset, where the old and new values to
@@ -223,15 +221,15 @@ expanded_recoding_dict$string$formula_pairs[[6]]
 
     ## [[1]]
     ## "A" ~ "Accepted"
-    ## <environment: 0x132fc1ee0>
+    ## <environment: 0x10682d620>
     ## 
     ## [[2]]
     ## "W" ~ "Waitlisted"
-    ## <environment: 0x132fc1578>
+    ## <environment: 0x10682cc80>
     ## 
     ## [[3]]
     ## "R" ~ "Rejected"
-    ## <environment: 0x132f8bb20>
+    ## <environment: 0x10682c318>
 
 ## Recoding columns in a dataset
 
