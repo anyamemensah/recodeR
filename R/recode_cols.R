@@ -96,7 +96,16 @@ recode_cols <- function(df,
     default_val <- default %||% NA
   }
   
-  dplyr::case_match(.x = x, !!!formula_pairs, .default = default_val)
+  dplyr::case_match(.x = x, !!!formula_pairs, .default = {
+    if (is.na(default_val)) {
+      NA
+    } else if (default_val != ".x") {
+      default_val
+    } else {
+      x
+    }
+  })
+
 }
 
 

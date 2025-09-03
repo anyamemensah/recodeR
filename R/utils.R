@@ -1,5 +1,5 @@
 
-.tbl_key <- function(values_from, values_to, string = TRUE) {
+.tbl_key <- function(values_from, values_to, string = FALSE) {
 
   if (string) {
     values_from <- as.character(values_from)

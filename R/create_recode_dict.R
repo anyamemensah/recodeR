@@ -140,6 +140,7 @@ create_recode_dict <- function(df,
                            to_col,
                            default_col,
                            string_col) {
+  
   if (!sum(df[[string_col]] == is_string)) {
     return(NULL)
   } else {
